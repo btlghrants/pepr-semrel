@@ -36,7 +36,9 @@ jobs:
     - name: semantic-release 
       # env:
       #   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: npm run semantic-release
+      run: |
+        npm ci
+        npm run semantic-release
 
   # build:
   #   runs-on: ubuntu-latest
