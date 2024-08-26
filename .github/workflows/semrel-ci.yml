@@ -38,7 +38,7 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
 
-  # --> works, but takes too longs, so commented out1
+  # --> takes too long, so skipping!
   # journey:
   #   runs-on: ubuntu-latest
   #   steps:

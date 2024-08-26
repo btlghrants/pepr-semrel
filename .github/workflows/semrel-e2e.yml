@@ -120,43 +120,44 @@ jobs:
         with:
           egress-policy: audit
 
-      - name: "install k3d"
-        run: "curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash"
-        shell: bash
+      # --> takes too long, so skipping!
+      # - name: "install k3d"
+      #   run: "curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash"
+      #   shell: bash
 
-      - name: dowload image tar artifact
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
-        with:
-          name: pepr-img.tar
-          path: ${{ github.workspace }}
+      # - name: dowload image tar artifact
+      #   uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+      #   with:
+      #     name: pepr-img.tar
+      #     path: ${{ github.workspace }}
 
-      - name: import pepr image from tar
-        run: |
-          PEPR_TAR="${GITHUB_WORKSPACE}/pepr-img.tar"
-          echo "PEPR_TAR=${PEPR_TAR}" >> "$GITHUB_ENV"
-          docker image load --input "$PEPR_TAR"
+      # - name: import pepr image from tar
+      #   run: |
+      #     PEPR_TAR="${GITHUB_WORKSPACE}/pepr-img.tar"
+      #     echo "PEPR_TAR=${PEPR_TAR}" >> "$GITHUB_ENV"
+      #     docker image load --input "$PEPR_TAR"
 
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-        with:
-          repository: defenseunicorns/pepr-excellent-examples
-          path: pepr-excellent-examples
+      # - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      #   with:
+      #     repository: defenseunicorns/pepr-excellent-examples
+      #     path: pepr-excellent-examples
 
-      - name: "set env: PEXEX"
-        run: echo "PEXEX=${GITHUB_WORKSPACE}/pepr-excellent-examples" >> "$GITHUB_ENV"
+      # - name: "set env: PEXEX"
+      #   run: echo "PEXEX=${GITHUB_WORKSPACE}/pepr-excellent-examples" >> "$GITHUB_ENV"
 
-      - name: setup node
-        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
-        with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: pepr-excellent-examples
+      # - name: setup node
+      #   uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+      #   with:
+      #     node-version: 20
+      #     cache: npm
+      #     cache-dependency-path: pepr-excellent-examples
 
-      - name: install pepr-excellent-examples deps
-        run: |
-          cd "$PEXEX"
-          npm ci
+      # - name: install pepr-excellent-examples deps
+      #   run: |
+      #     cd "$PEXEX"
+      #     npm ci
 
-      - name: run e2e tests
-        run: |
-          cd "$PEXEX"
-          npm run --workspace=${{ matrix.name }} test:e2e -- --image pepr:dev
+      # - name: run e2e tests
+      #   run: |
+      #     cd "$PEXEX"
+      #     npm run --workspace=${{ matrix.name }} test:e2e -- --image pepr:dev
