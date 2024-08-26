@@ -7,13 +7,6 @@ on:
   workflow_call:      # can be triggered by other workflows
 
 jobs:
-  todo:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "todo"
-        run: "echo 'todo'"
-        shell: bash
-
   version:
     runs-on: ubuntu-latest
     permissions: write-all
@@ -35,7 +28,8 @@ jobs:
         cache: npm
 
     - name: semantic-release 
-      # env:
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       run: |
         env
