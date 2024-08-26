@@ -15,7 +15,7 @@ on:
 
 jobs:
   rc:
-    if: ${{ github.event_name == "workflow_dispatch" || github.event.pull_request.merged == true }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true }}
     uses: ./.github/workflows/semrel-rc.yml
   soak:
     needs: [rc]
