@@ -1,6 +1,7 @@
 # refs:
 # - https://shipit.dev/posts/trigger-github-actions-on-pr-close.html
 # - https://github.com/orgs/community/discussions/26724
+# - https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#running-your-pull_request-workflow-when-a-pull-request-merges
 
 name: Release Testing
 
@@ -14,7 +15,7 @@ on:
 
 jobs:
   rc:
-    if: github.event.pull_request.merged == true
+    if: ${{ github.event_name == "workflow_dispatch" || github.event.pull_request.merged == true }}
     uses: ./.github/workflows/semrel-rc.yml
   soak:
     needs: [rc]

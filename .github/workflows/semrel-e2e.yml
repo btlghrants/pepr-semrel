@@ -12,7 +12,6 @@ on:
 
 jobs:
   pepr-build:
-    name: controller image
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
@@ -23,7 +22,7 @@ jobs:
       - name: clone pepr
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
-          repository: defenseunicorns/pepr
+          repository: btlghrants/pepr-semrel
           path: pepr
 
       - name: "set env: PEPR"
@@ -75,7 +74,7 @@ jobs:
       - name: clone pepr
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
-          repository: defenseunicorns/pepr
+          repository: btlghrants/pepr-semrel
           path: pepr
 
       - name: "set env: PEPR"
@@ -100,7 +99,7 @@ jobs:
       - name: create matrix
         run: |
           matrix=$(
-            node "$PEPR/.github/workflows/semrel-02-e2e-matrix.js" "$PEXEX"
+            node "$PEPR/.github/workflows/semrel-e2e-matrix.js" "$PEXEX"
           )
           echo "matrix=${matrix}" >> "$GITHUB_OUTPUT"
         id: create-matrix
