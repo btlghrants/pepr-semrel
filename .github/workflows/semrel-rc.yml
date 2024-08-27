@@ -23,7 +23,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
     steps:
     - uses: step-security/harden-runner@5c7944e73c4c2a096b17a9cb74d65b6c2bbafbde # v2.9.1
       with:
@@ -42,15 +42,15 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         npm ci
-        npm run sem-rel -- --dry-run | grep --invert-match --quiet \
+        npm run sem-rel -- --dry-run > dryrun.txt
+        cat dryrun.txt | grep --invert-match --quiet \
           "There are no relevant changes, so no new version is released."
 
   build:
     needs: [check]
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      packages: write
+      contents: write
     steps:
     - uses: step-security/harden-runner@5c7944e73c4c2a096b17a9cb74d65b6c2bbafbde # v2.9.1
       with:
