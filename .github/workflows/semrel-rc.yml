@@ -21,7 +21,6 @@ jobs:
     #     path: ${{ github.workspace }}
 
   check:
-    name: Check for Releasable Updates
     runs-on: ubuntu-latest
     permissions:
       contents: read
