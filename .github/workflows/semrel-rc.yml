@@ -42,10 +42,17 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         npm ci
-        npm run sem-rel -- --dry-run > dryrun.txt
-        cat dryrun.txt | grep --quiet \
+        npm run sem-rel -- --dry-run | grep --quiet \
           "There are no relevant changes, so no new version is released." \
           && exit 1
+
+        #npm run sem-rel -- --dry-run > dryrun.txt
+        #cat dryrun.txt | grep --quiet \
+        #  "There are no relevant changes, so no new version is released." \
+        #  && exit 1
+        #
+        # TODO: want to halt the pipeline without actually failing
+        #   https://github.com/orgs/community/discussions/27174, maybe..?
 
   build:
     needs: [check]
