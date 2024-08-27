@@ -38,22 +38,6 @@
     "format:fix": "eslint src --fix && prettier src --write",
     "sem-rel": "semantic-release"
   },
-  "release": {
-    "branches": [
-      {"name": "main", "channel": "latest" },
-      {"name": "next", "channel": "next", "prerelease": "rc"}
-    ],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      [
-        "@semantic-release/npm", {
-          "npmPublish": false
-        }
-      ],
-      "@semantic-release/github"
-    ]
-  },
   "dependencies": {
     "@types/ramda": "0.30.1",
     "express": "4.19.2",

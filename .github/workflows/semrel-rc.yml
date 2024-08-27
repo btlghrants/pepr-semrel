@@ -43,11 +43,9 @@ jobs:
       run: |
         npm ci
         npm run sem-rel -- --dry-run > dryrun.txt
-        cat dryrun.txt | grep --invert-match --quiet \
-          "There are no relevant changes, so no new version is released."
-        retval="$?"
-        echo "$retval"
-        exit "$retval"
+        cat dryrun.txt | grep --quiet \
+          "There are no relevant changes, so no new version is released." \
+          && exit 1
 
   build:
     needs: [check]
