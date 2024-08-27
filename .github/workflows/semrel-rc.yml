@@ -23,28 +23,28 @@ jobs:
   check:
     name: Check for Releasable Updates
     runs-on: ubuntu-latest
-      permissions:
-        contents: read
-      steps:
-      - uses: step-security/harden-runner@5c7944e73c4c2a096b17a9cb74d65b6c2bbafbde # v2.9.1
-        with:
-          egress-policy: audit
+    permissions:
+      contents: read
+    steps:
+    - uses: step-security/harden-runner@5c7944e73c4c2a096b17a9cb74d65b6c2bbafbde # v2.9.1
+      with:
+        egress-policy: audit
 
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+    - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
-      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
-        with:
-          node-version: 20
-          registry-url: "https://registry.npmjs.org"
-          cache: npm
+    - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+      with:
+        node-version: 20
+        registry-url: "https://registry.npmjs.org"
+        cache: npm
 
-      - name: check
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npm ci
-          npm run sem-rel -- --dry-run | grep --invert-match --quiet \
-            "There are no relevant changes, so no new version is released."
+    - name: check
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        npm ci
+        npm run sem-rel -- --dry-run | grep --invert-match --quiet \
+          "There are no relevant changes, so no new version is released."
 
   build:
     needs: [check]
