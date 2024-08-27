@@ -49,8 +49,8 @@ jobs:
         npm run sem-rel -- --dry-run | grep --quiet \
           "There are no relevant changes, so no new version is released."
 
-        if ! [ npm run sem-rel -- --dry-run | grep --quiet \
-          "There are no relevant changes, so no new version is released." ]
+        if ! [ $( npm run sem-rel -- --dry-run | grep --quiet \
+          "There are no relevant changes, so no new version is released." ) ]
         then
           echo "RELEASE_NEEDED=false" >> "$GITHUB_OUTPUT"
         else
