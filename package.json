@@ -52,11 +52,7 @@
         }
       ],
       "@semantic-release/github"
-    ],
-    "publishConfig": {
-      "registry": "https://registry.npmjs.org/",
-      "tag": "latest"
-    }
+    ]
   },
   "dependencies": {
     "@types/ramda": "0.30.1",
