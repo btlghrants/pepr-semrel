@@ -44,11 +44,14 @@ jobs:
       run: |
         npm ci
 
+        echo "a"
         npm run sem-rel -- --dry-run
 
-        npm run sem-rel -- --dry-run | grep --quiet \
+        echo "b"
+        npm run sem-rel -- --dry-run | grep \
           "There are no relevant changes, so no new version is released."
 
+        echo "c"
         if ! [ $( npm run sem-rel -- --dry-run | grep --quiet \
           "There are no relevant changes, so no new version is released." ) ]
         then
