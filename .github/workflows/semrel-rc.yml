@@ -60,7 +60,7 @@ jobs:
 
     - name: show
       run: |
-        echo "RELEASE_NEEDED=${{ steps.check.RELEASE_NEEDED }}"
+        echo "RELEASE_NEEDED=${{ steps.check.outputs.RELEASE_NEEDED }}"
 
   # build:
   #   needs: [check]
