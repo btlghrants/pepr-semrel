@@ -43,6 +43,12 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         npm ci
+
+        npm run sem-rel -- --dry-run
+
+        npm run sem-rel -- --dry-run | grep --quiet \
+          "There are no relevant changes, so no new version is released."
+
         if ! [ npm run sem-rel -- --dry-run | grep --quiet \
           "There are no relevant changes, so no new version is released." ]
         then
