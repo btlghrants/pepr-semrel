@@ -1,6 +1,6 @@
 name: Release (Candidate)
 
-permissions: none
+permissions: {}   # no permissions by default
 
 on:
   workflow_dispatch:  # can be triggered via UI
