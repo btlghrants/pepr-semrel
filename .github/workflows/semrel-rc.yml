@@ -46,7 +46,7 @@ jobs:
         npm ci
 
         needed=false
-        needle="There are no relevant changes, so no new version is releaseds."
+        needle="There are no relevant changes, so no new version is released."
         if $( npm run sem-rel -- --dry-run | grep --quiet "$needle" )
           then needed=false ; else needed=true
         fi
