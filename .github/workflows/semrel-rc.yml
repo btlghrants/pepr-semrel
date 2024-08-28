@@ -47,7 +47,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         needed=false
-        needle="There are no relevant changes, so no new version is released."
+        needle="There are no relevant changes, so no new version is released OOF."
 
         if $(npm run sem-rel -- --dry-run | tee >(cat 1>&2) | grep --quiet "$needle")
           then needed=false ; else needed=true
