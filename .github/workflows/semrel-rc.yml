@@ -44,27 +44,12 @@ jobs:
       run: |
         npm ci
 
-        echo "a"
-        npm run sem-rel -- --dry-run
-
-        echo "b"
-        npm run sem-rel -- --dry-run | grep \
-          "There are no relevant changes, so no new version is released."
-
-        echo "c"
-        $( npm run sem-rel -- --dry-run | grep --quiet \
-          "There are no relevant changes, so no new version is released." )
-        echo "exitcode: $?"
-
-        echo "d"
-
-        if $( npm run sem-rel -- --dry-run | grep --quiet \
-          "There are no relevant changes, so no new version is releaseds." )
-        then
-          echo "RELEASE_NEEDED=false" >> "$GITHUB_OUTPUT"
-        else
-          echo "RELEASE_NEEDED=true" >> "$GITHUB_OUTPUT"
+        needed=false
+        needle="There are no relevant changes, so no new version is released."
+        if $( npm run sem-rel -- --dry-run | grep --quiet "$needle" )
+          then needed=false ; else needed=true
         fi
+        echo "RELEASE_NEEDED='$needed'" >> "$GITHUB_OUTPUT"
 
         # npm run sem-rel -- --dry-run | grep --quiet \
         #   "There are no relevant changes, so no new version is released." \
