@@ -1,6 +1,6 @@
 name: Release (Candidate)
 
-permissions: read-all
+permissions: none
 
 on:
   workflow_dispatch:  # can be triggered via UI
