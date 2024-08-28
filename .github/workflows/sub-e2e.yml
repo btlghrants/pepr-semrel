@@ -1,5 +1,4 @@
-name: Sub - End-to-End Tests (E2E) (Pepr Excellent Examples)
-
+name: Sub - End-to-End Tests
 permissions: read-all
 
 on:
