@@ -59,7 +59,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - run: |
+    - run: |
         echo "RELEASE_NEEDED=${{ needs.check.outputs.RELEASE_NEEDED }}"
 
 
