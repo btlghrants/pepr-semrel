@@ -1,4 +1,4 @@
-name: End-to-End Tests (E2E) (Pepr Excellent Examples)
+name: Sub - End-to-End Tests (E2E) (Pepr Excellent Examples)
 
 permissions: read-all
 
@@ -99,7 +99,7 @@ jobs:
       - name: create matrix
         run: |
           matrix=$(
-            node "$PEPR/.github/workflows/e2e-matrix.js" "$PEXEX"
+            node "$PEPR/.github/workflows/sub-e2e-matrix.js" "$PEXEX"
           )
           echo "matrix=${matrix}" >> "$GITHUB_OUTPUT"
         id: create-matrix

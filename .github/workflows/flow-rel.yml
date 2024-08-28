@@ -23,11 +23,11 @@ jobs:
         github.event_name == 'workflow_dispatch' ||
         github.event.pull_request.merged == true
       }}
-    uses: ./.github/workflows/rc.yml
+    uses: ./.github/workflows/sub-rc.yml
   soak:
     needs: [rc]
     if: ${{ needs.rc.outputs.RELEASE_NEEDED == 'true' }}
-    uses: ./.github/workflows/soak.yml
+    uses: ./.github/workflows/sub-soak.yml
   official:
     needs: [soak]
-    uses: ./.github/workflows/official.yml
+    uses: ./.github/workflows/sub-official.yml

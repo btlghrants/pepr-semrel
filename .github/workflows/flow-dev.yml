@@ -9,7 +9,7 @@ on:
 
 jobs:
   ci:
-    uses: ./.github/workflows/ci.yml
+    uses: ./.github/workflows/sub-ci.yml
   e2e:
     needs: [ci]
-    uses: ./.github/workflows/e2e.yml
+    uses: ./.github/workflows/sub-e2e.yml
