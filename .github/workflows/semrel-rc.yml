@@ -39,7 +39,8 @@ jobs:
         registry-url: "https://registry.npmjs.org"
         cache: npm
 
-    - id: release-needed
+    - name: release-needed
+      id: release-needed
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
@@ -47,7 +48,10 @@ jobs:
 
         needed=false
         needle="There are no relevant changes, so no new version is released."
-        if $( npm run sem-rel -- --dry-run | grep --quiet "$needle" )
+        npm run sem-rel -- --dry-run | grep --quiet "$needle"
+        retval="$?"
+        echo "retval: $retval"
+        if [ "$retval" = 0 ]
           then needed=false ; else needed=true
         fi
         echo "RELEASE_NEEDED=$needed" >> "$GITHUB_OUTPUT"
