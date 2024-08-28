@@ -24,6 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      RELEASE_NEEDED: ${{ steps.release-needed.outputs.RELEASE_NEEDED }}
     steps:
     - uses: step-security/harden-runner@5c7944e73c4c2a096b17a9cb74d65b6c2bbafbde # v2.9.1
       with:
@@ -37,8 +39,7 @@ jobs:
         registry-url: "https://registry.npmjs.org"
         cache: npm
 
-    - name: check
-      id: check
+    - id: release-needed
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
@@ -51,18 +52,46 @@ jobs:
         fi
         echo "RELEASE_NEEDED=$needed" >> "$GITHUB_OUTPUT"
 
-        # TODO: want to halt the pipeline without actually failing
-        #   https://github.com/orgs/community/discussions/27174, maybe..?
+  show:
+    needs: [check]
+    if: ${{ needs.check.outputs.RELEASE_NEEDED == true }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - run: |
+        echo "RELEASE_NEEDED=${{ needs.check.outputs.RELEASE_NEEDED }}"
 
-    - name: show
-      if: steps.check.outputs.RELEASE_NEEDED == true
-      run: |
-        echo "RELEASE_NEEDED=${{ steps.check.outputs.RELEASE_NEEDED }}"
 
-    - name: show2
-      if: steps.check.outputs.RELEASE_NEEDED == true
-      run: |
-        echo "RELEASE_NEEDED=${{ steps.check.outputs.RELEASE_NEEDED }}"
+    #
+    # TODO: works for steps... but what about stopping downstream jobs?
+    #
+    # - name: check
+    #   id: check
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   run: |
+    #     npm ci
+
+    #     needed=false
+    #     needle="There are no relevant changes, so no new version is releaseds."
+    #     if $( npm run sem-rel -- --dry-run | grep --quiet "$needle" )
+    #       then needed=false ; else needed=true
+    #     fi
+    #     echo "RELEASE_NEEDED=$needed" >> "$GITHUB_OUTPUT"
+
+
+
+    # - name: show
+    #   if: steps.check.outputs.RELEASE_NEEDED == true
+    #   run: |
+    #     echo "RELEASE_NEEDED=${{ steps.check.outputs.RELEASE_NEEDED }}"
+
+    # - name: show2
+    #   if: steps.check.outputs.RELEASE_NEEDED == true
+    #   run: |
+    #     echo "RELEASE_NEEDED=${{ steps.check.outputs.RELEASE_NEEDED }}"
+
   # build:
   #   needs: [check]
   #   runs-on: ubuntu-latest
