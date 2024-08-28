@@ -49,7 +49,7 @@ jobs:
         needed=false
         needle="There are no relevant changes, so no new version is released."
 
-        if $(npm run sem-rel -- --dry-run | tee >(cat -) | grep --quiet "$needle")
+        if $(npm run sem-rel -- --dry-run | tee >(cat 1>&2) | grep --quiet "$needle")
           then needed=false ; else needed=true
         fi
 
