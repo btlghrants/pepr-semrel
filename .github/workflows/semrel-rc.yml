@@ -60,7 +60,7 @@ jobs:
         echo "RELEASE_NEEDED=${{ steps.check.outputs.RELEASE_NEEDED }}"
 
     - name: show2
-      needs: [show]
+      if: steps.check.outputs.RELEASE_NEEDED == true
       run: |
         echo "RELEASE_NEEDED=${{ steps.check.outputs.RELEASE_NEEDED }}"
   # build:
