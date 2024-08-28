@@ -1,4 +1,4 @@
-name: Dev Testing
+name: Flow - Development Testing
 
 permissions: read-all
 
@@ -9,7 +9,7 @@ on:
 
 jobs:
   ci:
-    uses: ./.github/workflows/semrel-ci.yml
+    uses: ./.github/workflows/ci.yml
   e2e:
     needs: [ci]
-    uses: ./.github/workflows/semrel-e2e.yml
+    uses: ./.github/workflows/e2e.yml

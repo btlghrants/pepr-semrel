@@ -99,7 +99,7 @@ jobs:
       - name: create matrix
         run: |
           matrix=$(
-            node "$PEPR/.github/workflows/semrel-e2e-matrix.js" "$PEXEX"
+            node "$PEPR/.github/workflows/e2e-matrix.js" "$PEXEX"
           )
           echo "matrix=${matrix}" >> "$GITHUB_OUTPUT"
         id: create-matrix

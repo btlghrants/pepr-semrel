@@ -4,7 +4,7 @@
 # - https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#running-your-pull_request-workflow-when-a-pull-request-merges
 # - https://github.com/orgs/community/discussions/27058
 
-name: Release Testing
+name: Flow - Release Testing
 
 permissions: read-all
 
@@ -23,11 +23,11 @@ jobs:
         github.event_name == 'workflow_dispatch' ||
         github.event.pull_request.merged == true
       }}
-    uses: ./.github/workflows/semrel-rc.yml
+    uses: ./.github/workflows/rc.yml
   soak:
     needs: [rc]
     if: ${{ needs.rc.outputs.RELEASE_NEEDED == 'true' }}
-    uses: ./.github/workflows/semrel-soak.yml
+    uses: ./.github/workflows/soak.yml
   official:
     needs: [soak]
-    uses: ./.github/workflows/semrel-official.yml
+    uses: ./.github/workflows/official.yml

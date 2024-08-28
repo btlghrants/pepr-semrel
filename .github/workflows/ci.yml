@@ -1,4 +1,4 @@
-name: Continuous Integration (CI) Tests
+name: Continuous Integration
 
 permissions: read-all
 
