@@ -26,6 +26,7 @@ jobs:
     uses: ./.github/workflows/semrel-rc.yml
   soak:
     needs: [rc]
+    if: ${{ needs.rc.outputs.RELEASE_NEEDED == 'true' }}
     uses: ./.github/workflows/semrel-soak.yml
   official:
     needs: [soak]
