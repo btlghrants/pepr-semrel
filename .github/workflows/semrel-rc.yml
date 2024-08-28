@@ -49,7 +49,7 @@ jobs:
         if $( npm run sem-rel -- --dry-run | grep --quiet "$needle" )
           then needed=false ; else needed=true
         fi
-        echo "RELEASE_NEEDED='$needed'" >> "$GITHUB_OUTPUT"
+        echo "RELEASE_NEEDED=$needed" >> "$GITHUB_OUTPUT"
 
         # npm run sem-rel -- --dry-run | grep --quiet \
         #   "There are no relevant changes, so no new version is released." \
