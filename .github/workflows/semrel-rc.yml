@@ -54,7 +54,8 @@ jobs:
         fi
 
         echo "RELEASE_NEEDED=$needed" >> "$GITHUB_OUTPUT"
-        echo -n "\nRELEASE_NEEDED=$needed"
+        echo ""
+        echo "RELEASE_NEEDED=$needed"
 
   show:
     needs: [check]
