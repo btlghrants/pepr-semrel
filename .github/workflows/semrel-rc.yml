@@ -39,7 +39,7 @@ jobs:
         registry-url: "https://registry.npmjs.org"
         cache: npm
 
-    - name: release-needed
+    - name: Release needed?
       id: release-needed
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -47,7 +47,7 @@ jobs:
         npm ci
 
         needed=false
-        needle="There are no relevant changes, so no new version is released."
+        needle="There are no relevant changes, so no new version is releaseds."
         npm run sem-rel -- --dry-run | grep --quiet "$needle"
         retval="$?"
         echo "retval: $retval"
