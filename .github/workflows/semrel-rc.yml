@@ -51,17 +51,18 @@ jobs:
         fi
         echo "RELEASE_NEEDED=$needed" >> "$GITHUB_OUTPUT"
 
-        # npm run sem-rel -- --dry-run | grep --quiet \
-        #   "There are no relevant changes, so no new version is released." \
-        #   && exit 1
-        
         # TODO: want to halt the pipeline without actually failing
         #   https://github.com/orgs/community/discussions/27174, maybe..?
 
     - name: show
+      if: steps.check.outputs.RELEASE_NEEDED == true
       run: |
         echo "RELEASE_NEEDED=${{ steps.check.outputs.RELEASE_NEEDED }}"
 
+    - name: show2
+      needs: [show]
+      run: |
+        echo "RELEASE_NEEDED=${{ steps.check.outputs.RELEASE_NEEDED }}"
   # build:
   #   needs: [check]
   #   runs-on: ubuntu-latest
