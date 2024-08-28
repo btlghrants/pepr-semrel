@@ -48,11 +48,12 @@ jobs:
 
         needed=false
         needle="There are no relevant changes, so no new version is released OOF."
-        retval=$(npm run sem-rel -- --dry-run | grep --quiet "$needle" ; echo "$?")
-        echo "retval: $retval"
-        if [ "$retval" = 0 ]
+        # retval=$(npm run sem-rel -- --dry-run | grep --quiet "$needle" ; echo "$?")
+        # if [ "$retval" = 0 ]
+        if $(npm run sem-rel -- --dry-run | grep --quiet "$needle")
           then needed=false ; else needed=true
         fi
+        echo "RELEASE_NEEDED=$needed"
         echo "RELEASE_NEEDED=$needed" >> "$GITHUB_OUTPUT"
 
   show:
