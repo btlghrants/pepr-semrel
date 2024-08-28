@@ -7,19 +7,6 @@ on:
   workflow_call:      # can be triggered by other workflows
 
 jobs:
-    # - name: upload image tar artifact
-    #   uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
-    #   with:
-    #     name: pepr-img.tar
-    #     path: pepr-img.tar
-    #     retention-days: 1
-
-    # - name: dowload image tar artifact
-    #   uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
-    #   with:
-    #     name: pepr-img.tar
-    #     path: ${{ github.workspace }}
-
   check:
     runs-on: ubuntu-latest
     permissions:
@@ -47,7 +34,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         needed=false
-        needle="There are no relevant changes, so no new version is released OOF."
+        needle="There are no relevant changes, so no new version is released."
 
         if $(npm run sem-rel -- --dry-run | tee >(cat 1>&2) | grep --quiet "$needle")
           then needed=false ; else needed=true
@@ -66,6 +53,21 @@ jobs:
     steps:
     - run: |
         echo "RELEASE_NEEDED=${{ needs.check.outputs.RELEASE_NEEDED }}"
+
+
+
+    # - name: upload image tar artifact
+    #   uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
+    #   with:
+    #     name: pepr-img.tar
+    #     path: pepr-img.tar
+    #     retention-days: 1
+
+    # - name: dowload image tar artifact
+    #   uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+    #   with:
+    #     name: pepr-img.tar
+    #     path: ${{ github.workspace }}
 
 
     #
