@@ -47,7 +47,7 @@ jobs:
         npm ci
 
         needed=false
-        needle="There are no relevant changes, so no new version is releaseds."
+        needle="There are no relevant changes, so no new version is released OOF."
         retval=$(npm run sem-rel -- --dry-run | grep --quiet "$needle" ; echo "$?")
         echo "retval: $retval"
         if [ "$retval" = 0 ]
@@ -57,7 +57,7 @@ jobs:
 
   show:
     needs: [check]
-    if: ${{ needs.check.outputs.RELEASE_NEEDED == true }}
+    if: ${{ needs.check.outputs.RELEASE_NEEDED == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
