@@ -52,6 +52,12 @@ jobs:
           "There are no relevant changes, so no new version is released."
 
         echo "c"
+        $( npm run sem-rel -- --dry-run | grep --quiet \
+          "There are no relevant changes, so no new version is released." )
+        echo "exitcode: $?"
+
+        echo "d"
+
         if ! [ $( npm run sem-rel -- --dry-run | grep --quiet \
           "There are no relevant changes, so no new version is released." ) ]
         then
